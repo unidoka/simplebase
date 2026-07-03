@@ -1,7 +1,9 @@
 from fastapi import FastAPI
+from app.api.v1 import router
 from app.controllers.v0 import stub_controller
 
 app = FastAPI(title="Python Microservice")
+app.include_router(router)
 
 
 @app.get("/")
