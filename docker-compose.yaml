@@ -1,0 +1,109 @@
+name: simplebase-main
+
+services:
+  app_main:
+    build:
+      context: ./services/main
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET:-prod}
+    ports:
+      - "${APP_EXTERNAL_PORT:-8000}:8000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      VALKEY_URL: ${VALKEY_URL:-redis://valkey:6379/0}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+      SMS_PROVIDER_URL: ${SMS_PROVIDER_URL}
+    env_file:
+      - .env
+    volumes:
+      # Uncomment on dev 
+      - ./services/main:./services/main
+    depends_on:
+      db:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    networks:
+      # name same as network named in infra compose file
+      - main-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=PathPrefix(`/api`)"
+      - "traefik.http.services.app.loadbalancer.server.port=8000"
+      # Uncomment for HTTPS
+      # - "traefik.http.routers.app.entrypoints=websecure"
+      # - "traefik.http.routers.app.tls.certresolver=myresolver"
+
+  db:
+    image: postgres:16-alpine
+    container_name: simplebase-main_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      # name same as network named in infra compose file
+      - main-network
+
+  valkey:
+    image: valkey/valkey:8-alpine
+    container_name: simplebase-main_valkey
+    ports:
+      - "${VALKEY_EXTERNAL_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      # name same as network named in infra compose file
+      - main-network
+
+  migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET:-prod}
+    container_name: simplebase-main_migrations
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://user:pass@db:5432/maindb}
+    command: alembic upgrade head
+    networks:
+      # name same as network named in infra compose file
+      - main-network
+    profiles:
+      - migrations
+
+  mock-sms:
+    image: wiremock/wiremock:3.0.1
+    container_name: simplebase-main_mock-sms
+    command: --port 8080
+    ports:
+      - "8080:8080"
+    networks:
+      # name same as network named in infra compose file
+      - main-network
+    profiles:
+      - dev
+
+volumes:
+  postgres_data:
+
+networks:
+  # name same as network named in infra compose file
+  main-network:
+    driver: bridge
