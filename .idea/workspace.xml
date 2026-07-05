@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab416149-4d11-4a06-9e6c-f5c6452410b0" name="Changes" comment="" />
+    <list default="true" id="ab416149-4d11-4a06-9e6c-f5c6452410b0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repomix-output.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/api-gateway/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/services/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/main-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/services/main-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/main-service/requirements/dev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/services/main-service/requirements/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/main-service/src/api/v1/products.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/main-service/src/api/v1/products.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +71,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1783184714668</updated>
-      <workItem from="1783184715866" duration="5731000" />
+      <workItem from="1783184715866" duration="6867000" />
+      <workItem from="1783234146446" duration="1469000" />
     </task>
     <servers />
   </component>
