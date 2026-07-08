@@ -25,3 +25,4 @@ go.work.sum
 .env
 
 services/*/tmp/
+repomix-output.xml

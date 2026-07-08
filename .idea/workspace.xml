@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab416149-4d11-4a06-9e6c-f5c6452410b0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repomix-output.xml" beforeDir="false" />
-    </list>
+    <list default="true" id="ab416149-4d11-4a06-9e6c-f5c6452410b0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +74,7 @@
       <workItem from="1783409507499" duration="14737000" />
       <workItem from="1783453891667" duration="2649000" />
       <workItem from="1783496553382" duration="769000" />
-      <workItem from="1783499237416" duration="27353000" />
+      <workItem from="1783499237416" duration="28224000" />
     </task>
     <servers />
   </component>
