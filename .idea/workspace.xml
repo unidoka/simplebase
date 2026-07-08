@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab416149-4d11-4a06-9e6c-f5c6452410b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/services/main-service/app/api/v1/users.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/main-service/app/models/user.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/main-service/app/schemas/product/responses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.dev.example" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repomix-output.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/main-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/services/main-service/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/main-service/requirements/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/services/main-service/requirements/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/main-service/src/api/router.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/main-service/app/api/router.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/main-service/src/api/v1/products.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/main-service/app/api/v1/products.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/main-service/src/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/main-service/database/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/main-service/src/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/main-service/src/models/product.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/main-service/src/schemas/product/requests.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/main-service/app/schemas/product/requests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/main-service/src/schemas/product/responses.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +46,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/services/main-service" />
       <recent name="$PROJECT_DIR$/services/main-service/src/database" />
@@ -88,7 +78,7 @@
       <workItem from="1783409507499" duration="14737000" />
       <workItem from="1783453891667" duration="2649000" />
       <workItem from="1783496553382" duration="769000" />
-      <workItem from="1783499237416" duration="26285000" />
+      <workItem from="1783499237416" duration="27353000" />
     </task>
     <servers />
   </component>
