@@ -11,73 +11,124 @@ from app.schemas.auth.responses import EmailSendCode
 from app.schemas.token.responses import TokenResponse, AccessTokenResponse
 from app.services.email_service import send_email
 from app.services.sms_service import send_sms
-from app.services.otp_service import generate_otp, save_otp, verify_otp
+from app.services.otp_service import generate_otp, save_otp, verify_otp, parse_and_normalize_login
 from app.services.user_service import create_user
 from app.shared.auth import create_access_token, create_refresh_token, decode_token
 from config.rate_limiter import limit_otp_send
 from database.database import get_db
 from app.schemas.auth.responses import PhoneSendCode
 from app.schemas.token.request import RefreshTokenRequest
+from sqlalchemy import or_
 
 router = APIRouter()
 
+
 @router.post("/login/email")
 async def email_login(
-    payload: EmailLoginRequest,
-    db: Session = Depends(get_db),
-    _: None = Depends(limit_otp_send),
+        payload: EmailLoginRequest,
+        db: Session = Depends(get_db),
+        _: None = Depends(limit_otp_send),
 ) -> EmailSendCode:
-    user_found = db.query(User).filter(User.email == payload.email).first()
+    email_clean = payload.email.lower().strip()
+
+    user_found = db.query(User).filter(User.email == email_clean).first()
+
+    if not user_found:
+        create_response = create_user(db, email=email_clean)
+
+        if not create_response.created:
+            raise HTTPException(
+                status_code=400,
+                detail=create_response.errors or "Не удалось создать пользователя"
+            )
+
+        user_found = create_response.user
 
     code = generate_otp()
-    saved = save_otp(payload.email, code, "reg_email")
+    saved = save_otp(email_clean, code, "reg_email")
 
     if not saved:
         raise HTTPException(status_code=503, detail="OTP storage unavailable")
 
     subject = "Код для входа в аккаунт" if user_found else "Код для регистрации"
-    sent = await send_email(payload.email, subject, code)
+    sent = await send_email(email_clean, subject, code)
 
     return EmailSendCode(sent=sent, user_exists=bool(user_found))
 
 @router.post("/login/phone")
-async def email_login(
+async def phone_login(
     payload: SmsLoginRequest,
     db: Session = Depends(get_db),
     _: None = Depends(limit_otp_send),
 ) -> PhoneSendCode:
+    phone_clean = payload.phone.lower().strip()
+
     user_found = db.query(User).filter(User.email == payload.phone).first()
 
+    if not user_found:
+        create_response = create_user(db, phone=phone_clean)
+
+        if not create_response.created:
+            raise HTTPException(
+                status_code=400,
+                detail=create_response.errors or "Не удалось создать пользователя"
+            )
+
+        user_found = create_response.user
+
     code = generate_otp()
-    saved = save_otp(payload.phone, code, "reg_email")
+    saved = save_otp(payload.phone, code, "reg_phone")
 
     if not saved:
         raise HTTPException(status_code=503, detail="OTP storage unavailable")
 
-    text = "Код для входа в аккаунт" if user_found else "Код для регистрации"
-    sent = await send_sms(payload.phone, f"{text} {code}")
+    sent = await send_sms(payload.phone, f"{code}")
 
     return PhoneSendCode(sent=sent, user_exists=bool(user_found))
 
-@router.post("/otp/email")
-async def confirm_otp_email(
-    email: str,
+
+@router.post(
+    "/otp",
+    summary="Подтверждение кода",
+    description="Принимает на вход login (почта или телефон) и проверяет его в Valkey"
+)
+async def confirm_otp(
+    login: str,
     code: str,
     db: Session = Depends(get_db),
 ) -> TokenResponse:
-    if not verify_otp(email, code):
-        raise HTTPException(status_code=401, detail="Неверный или истекший код")
+    try:
+        login_type, normalized_login = parse_and_normalize_login(login)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
 
-    user = db.query(User).filter(User.email == email).first()
+    print(login_type, login_type, login_type, login_type, login_type, login_type, login_type, login_type)
+
+    if login_type == "email":
+        user = db.query(User).filter(User.email == normalized_login).first()
+    else:
+        user = db.query(User).filter(User.phone == normalized_login).first()
+
     if not user:
-        raise HTTPException(status_code=404, detail="Пользователь не найден")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Пользователь не найден"
+        )
+
+    if not verify_otp(normalized_login, code):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Неверный или истекший код"
+        )
 
     return TokenResponse(
         access_token=create_access_token({"sub": str(user.id)}),
         refresh_token=create_refresh_token({"sub": str(user.id)}),
         token_type="bearer",
     )
-
 
 @router.post("/register/phone")
 async def registerViaPhone(

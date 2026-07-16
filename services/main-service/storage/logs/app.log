@@ -84,3 +84,22 @@ Traceback (most recent call last):
               ^^^^^^^^^^^^^^^^^
 AttributeError: module 'bcrypt' has no attribute '__about__'
 [Y-m-d H:i:s] INFO: HTTP Request: POST https://admin.p1sms.ru/apiSms/create "HTTP/1.1 200 OK"
+[Y-m-d H:i:s] INFO: HTTP Request: POST https://admin.p1sms.ru/apiSms/create "HTTP/1.1 200 OK"
+[Y-m-d H:i:s] INFO: Sending SMS via: https://admin.p1sms.ru/apiSms/create | Sender: VIRTA
+[Y-m-d H:i:s] INFO: HTTP Request: POST https://admin.p1sms.ru/apiSms/create "HTTP/1.1 200 OK"
+[Y-m-d H:i:s] INFO: Sending SMS via: https://admin.p1sms.ru/apiSms/create | Sender: VIRTA
+[Y-m-d H:i:s] INFO: HTTP Request: POST https://admin.p1sms.ru/apiSms/create "HTTP/1.1 200 OK"
+[Y-m-d H:i:s] INFO: Sending SMS via: https://admin.p1sms.ru/apiSms/create | Sender: VIRTA
+[Y-m-d H:i:s] INFO: HTTP Request: POST https://admin.p1sms.ru/apiSms/create "HTTP/1.1 400 Bad Request"
+[Y-m-d H:i:s] INFO: Sending SMS via: https://admin.p1sms.ru/apiSms/create | Sender: VIRTA
+[Y-m-d H:i:s] INFO: HTTP Request: POST https://admin.p1sms.ru/apiSms/create "HTTP/1.1 400 Bad Request"
+[Y-m-d H:i:s] INFO: <Response [400 Bad Request]>
+[Y-m-d H:i:s] INFO: Sending SMS via: https://admin.p1sms.ru/apiSms/create | Sender: VIRTA
+[Y-m-d H:i:s] INFO: HTTP Request: POST https://admin.p1sms.ru/apiSms/create "HTTP/1.1 400 Bad Request"
+[Y-m-d H:i:s] INFO: {'status': 'error', 'data': {'message': 'The selected sms.0.channel is invalid.', 'debugInfo': 'The given data failed to pass validation.', 'exception': 'ValidationException'}}
+[Y-m-d H:i:s] INFO: Sending SMS via: https://admin.p1sms.ru/apiSms/create | Sender: VIRTA
+[Y-m-d H:i:s] INFO: HTTP Request: POST https://admin.p1sms.ru/apiSms/create "HTTP/1.1 200 OK"
+[Y-m-d H:i:s] INFO: {'status': 'success', 'data': [{'currency': 'RUB', 'message': 'Код для входа в аккаунт 737189', 'createdAt': 1784194171, 'id': 1189424720, 'tag': None, 'status': 'sent', 'phone': '79375803414'}]}
+[Y-m-d H:i:s] INFO: Sending SMS via: https://admin.p1sms.ru/apiSms/create | Sender: VIRTA
+[Y-m-d H:i:s] INFO: HTTP Request: POST https://admin.p1sms.ru/apiSms/create "HTTP/1.1 200 OK"
+[Y-m-d H:i:s] INFO: {'status': 'success', 'data': [{'currency': 'RUB', 'message': '789394', 'createdAt': 1784195008, 'id': 1189425459, 'tag': None, 'status': 'sent', 'phone': '79375803414'}]}
